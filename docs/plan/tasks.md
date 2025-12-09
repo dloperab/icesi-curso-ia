@@ -83,34 +83,34 @@ Este plan descompone el desarrollo del MVP en **5 fases secuenciales** con **25 
 ## Fase 2: Data Fetching Layer
 
 ### Custom Hooks - Hábitos
-- [ ] Crear hook `useHabits` para CRUD de hábitos:
-    - [ ] Implementar SWR con key `/api/habits` en `src/hooks/useHabits.ts`
-    - [ ] Agregar función `createHabit()` con optimistic update (agregar a UI inmediatamente)
-    - [ ] Agregar función `deleteHabit()` con optimistic update (remover de UI inmediatamente)
-    - [ ] Configurar rollback automático en caso de error
-    - [ ] Crear tests con mock de fetch en `src/__tests__/hooks/useHabits.test.ts` (fetch exitoso, crear, eliminar, rollback)
+- [x] Crear hook `useHabits` para CRUD de hábitos:
+    - [x] Implementar SWR con key `/api/habits` en `src/hooks/useHabits.ts`
+    - [x] Agregar función `createHabit()` con optimistic update (agregar a UI inmediatamente)
+    - [x] Agregar función `deleteHabit()` con optimistic update (remover de UI inmediatamente)
+    - [x] Configurar rollback automático en caso de error
+    - [x] Crear tests con mock de fetch en `src/__tests__/hooks/useHabits.test.tsx` (fetch exitoso, crear, eliminar, rollback)
 
 ### Custom Hooks - Check-ins
-- [ ] Crear hook `useHabitLogs` para registrar check-ins:
-    - [ ] Implementar función `createLog()` en `src/hooks/useHabitLogs.ts`
-    - [ ] Configurar POST a `/api/habits/[id]/logs` con indicador de loading
-    - [ ] Revalidar múltiples keys: `useHabits` y `useHabitStats` tras crear log
-    - [ ] Manejar error 409 (duplicado) con mensaje amigable
-    - [ ] Crear tests con mock en `src/__tests__/hooks/useHabitLogs.test.ts` (crear exitoso, duplicado, revalidación)
+- [x] Crear hook `useHabitLogs` para registrar check-ins:
+    - [x] Implementar función `createLog()` en `src/hooks/useHabitLogs.ts`
+    - [x] Configurar POST a `/api/habits/[id]/logs` con indicador de loading
+    - [x] Revalidar múltiples keys: `useHabits` y `useHabitStats` tras crear log
+    - [x] Manejar error 409 (duplicado) con mensaje amigable
+    - [x] Crear tests con mock en `src/__tests__/hooks/useHabitLogs.test.tsx` (crear exitoso, duplicado, revalidación)
 
 ### Custom Hooks - Estadísticas
-- [ ] Crear hook `useHabitStats` para obtener estadísticas:
-    - [ ] Implementar SWR con key dinámica `/api/habits/${id}/stats?from=...&to=...` en `src/hooks/useHabitStats.ts`
-    - [ ] Agregar parámetros opcionales `from` y `to` (Date) para filtrado temporal
-    - [ ] Configurar revalidación automática on focus
-    - [ ] Crear tests con mock en `src/__tests__/hooks/useHabitStats.test.ts` (fetch exitoso, con filtro temporal, habit inexistente)
+- [x] Crear hook `useHabitStats` para obtener estadísticas:
+    - [x] Implementar SWR con key dinámica `/api/habits/${id}/stats?from=...&to=...` en `src/hooks/useHabitStats.ts`
+    - [x] Agregar parámetros opcionales `from` y `to` (Date) para filtrado temporal
+    - [x] Configurar revalidación automática on focus
+    - [x] Crear tests con mock en `src/__tests__/hooks/useHabitStats.test.tsx` (fetch exitoso, con filtro temporal, habit inexistente)
 
 ### Configuración Global
-- [ ] Configurar SWR global en `src/app/layout.tsx`:
-    - [ ] Agregar `SWRConfig` provider envolviendo `{children}`
-    - [ ] Configurar `revalidateOnFocus: true` y `revalidateOnReconnect: true`
-    - [ ] Configurar `shouldRetryOnError: false` (evitar retry en 404/409)
-    - [ ] Crear fetcher global con manejo de errores JSON (lanzar error para status ≥400)
+- [x] Configurar SWR global en `src/app/layout.tsx`:
+    - [x] Agregar `SWRConfig` provider envolviendo `{children}`
+    - [x] Configurar `revalidateOnFocus: true` y `revalidateOnReconnect: true`
+    - [x] Configurar `shouldRetryOnError: false` (evitar retry en 404/409)
+    - [x] Crear fetcher global con manejo de errores JSON (lanzar error para status ≥400)
 
 ---
 
