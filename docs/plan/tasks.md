@@ -39,44 +39,44 @@ Este plan descompone el desarrollo del MVP en **5 fases secuenciales** con **25 
 ## Fase 1: Backend Foundations
 
 ### Tipos y Validaciones
-- [ ] Definir tipos TypeScript y esquemas Zod:
-    - [ ] Crear interfaces TypeScript en `src/types/habits.ts` (Habit, HabitLog, HabitStats) con JSDoc
-    - [ ] Crear esquemas Zod en `src/lib/validations.ts` (crear hábito, crear log, query params)
-    - [ ] Configurar inferencia TypeScript desde Zod (`z.infer<typeof schema>`)
-    - [ ] Validar alineación con Prisma schema
+- [x] Definir tipos TypeScript y esquemas Zod:
+    - [x] Crear interfaces TypeScript en `src/types/habits.ts` (Habit, HabitLog, HabitStats) con JSDoc
+    - [x] Crear esquemas Zod en `src/lib/validations.ts` (crear hábito, crear log, query params)
+    - [x] Configurar inferencia TypeScript desde Zod (`z.infer<typeof schema>`)
+    - [x] Validar alineación con Prisma schema
 
 ### Lógica de Negocio
-- [ ] Implementar funciones de cálculo de estadísticas en `src/lib/calculations.ts`:
-    - [ ] `calculateCurrentStreak()` - racha actual basada en frecuencia (daily/weekly)
-    - [ ] `calculateMaxStreak()` - racha máxima histórica
-    - [ ] `calculateCompletionRate()` - tasa de completitud porcentual
-    - [ ] `getNextExpectedDate()` - próxima fecha esperada de check-in
-    - [ ] Crear suite de tests unitarios en `src/__tests__/lib/calculations.test.ts` (mínimo 3 tests por función: caso normal, caso límite, caso error)
-    - [ ] Documentar algoritmos con JSDoc y alcanzar 100% coverage
+- [x] Implementar funciones de cálculo de estadísticas en `src/lib/calculations.ts`:
+    - [x] `calculateCurrentStreak()` - racha actual basada en frecuencia (daily/weekly)
+    - [x] `calculateMaxStreak()` - racha máxima histórica
+    - [x] `calculateCompletionRate()` - tasa de completitud porcentual
+    - [x] `getNextExpectedDate()` - próxima fecha esperada de check-in
+    - [x] Crear suite de tests unitarios en `src/__tests__/lib/calculations.test.ts` (mínimo 3 tests por función: caso normal, caso límite, caso error)
+    - [x] Documentar algoritmos con JSDoc y alcanzar 100% coverage
 
 ### API Routes - Hábitos
-- [ ] Crear endpoints CRUD para hábitos:
-    - [ ] Implementar GET `/api/habits` - listar hábitos ordenados por `createdAt`
-    - [ ] Implementar POST `/api/habits` - crear hábito con validación Zod (status 201)
-    - [ ] Implementar DELETE `/api/habits/[id]` - eliminar hábito con cascade delete (status 204)
-    - [ ] Agregar manejo de errores Prisma (404, 500) con respuestas JSON descriptivas
-    - [ ] Crear tests de integración en `src/__tests__/app/api/habits.test.ts` (happy path, validación, errores)
+- [x] Crear endpoints CRUD para hábitos:
+    - [x] Implementar GET `/api/habits` - listar hábitos ordenados por `createdAt`
+    - [x] Implementar POST `/api/habits` - crear hábito con validación Zod (status 201)
+    - [x] Implementar DELETE `/api/habits/[id]` - eliminar hábito con cascade delete (status 204)
+    - [x] Agregar manejo de errores Prisma (404, 500) con respuestas JSON descriptivas
+    - [x] Crear tests de integración en `src/__tests__/app/api/habits.test.ts` (happy path, validación, errores)
 
 ### API Routes - Check-ins
-- [ ] Crear endpoint para registrar check-ins:
-    - [ ] Implementar POST `/api/habits/[id]/logs` en `src/app/api/habits/[id]/logs/route.ts`
-    - [ ] Configurar timestamp automático con `DateTime @default(now())`
-    - [ ] Manejar constraint de unicidad `unique([habitId, completedAt])` (status 409 en duplicado)
-    - [ ] Validar existencia de hábito (404 si no existe)
-    - [ ] Crear tests de integración en `src/__tests__/app/api/logs.test.ts` (crear exitoso, duplicado, habit inexistente)
+- [x] Crear endpoint para registrar check-ins:
+    - [x] Implementar POST `/api/habits/[id]/logs` en `src/app/api/habits/[id]/logs/route.ts`
+    - [x] Configurar timestamp automático con `DateTime @default(now())`
+    - [x] Manejar constraint de unicidad `unique([habitId, completedAt])` (status 409 en duplicado)
+    - [x] Validar existencia de hábito (404 si no existe)
+    - [x] Crear tests de integración en `src/__tests__/app/api/logs.test.ts` (crear exitoso, duplicado, habit inexistente)
 
 ### API Routes - Estadísticas
-- [ ] Crear endpoint para estadísticas calculadas:
-    - [ ] Implementar GET `/api/habits/[id]/stats` en `src/app/api/habits/[id]/stats/route.ts`
-    - [ ] Integrar con funciones de `lib/calculations.ts` (compute-on-read)
-    - [ ] Agregar soporte para query params `from` y `to` (filtro temporal con Prisma)
-    - [ ] Retornar JSON con: `habitId, currentStreak, maxStreak, completionRate, nextExpectedDate, totalLogs`
-    - [ ] Crear tests de integración en `src/__tests__/app/api/stats.test.ts` (con logs, sin logs, con filtro temporal)
+- [x] Crear endpoint para estadísticas calculadas:
+    - [x] Implementar GET `/api/habits/[id]/stats` en `src/app/api/habits/[id]/stats/route.ts`
+    - [x] Integrar con funciones de `lib/calculations.ts` (compute-on-read)
+    - [x] Agregar soporte para query params `from` y `to` (filtro temporal con Prisma)
+    - [x] Retornar JSON con: `habitId, currentStreak, maxStreak, completionRate, nextExpectedDate, totalLogs`
+    - [x] Crear tests de integración en `src/__tests__/app/api/stats.test.ts` (con logs, sin logs, con filtro temporal)
 
 ---
 
