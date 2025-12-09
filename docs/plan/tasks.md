@@ -19,20 +19,20 @@ Este plan descompone el desarrollo del MVP en **5 fases secuenciales** con **25 
 ## Fase 0: Diseño y Documentación
 
 ### Arquitectura del Sistema
-- [ ] Crear diagrama de Contexto C4 (nivel 1):
-    - [ ] Diseñar diagrama con MermaidJS en `docs/architecture/c4-context.md`
-    - [ ] Documentar actores externos (Usuario, Base de Datos SQLite)
-    - [ ] Definir alcance del sistema MVP
-- [ ] Crear diagrama de Contenedores C4 (nivel 2):
-    - [ ] Diseñar diagrama con MermaidJS en `docs/architecture/c4-containers.md`
-    - [ ] Documentar componentes: Next.js App (Frontend + Backend), Prisma ORM, SQLite
-    - [ ] Describir flujo de datos entre contenedores
+- [x] Crear diagrama de Contexto C4 (nivel 1):
+    - [x] Diseñar diagrama con MermaidJS en `docs/architecture/c4-context.md`
+    - [x] Documentar actores externos (Usuario, Base de Datos SQLite)
+    - [x] Definir alcance del sistema MVP
+- [x] Crear diagrama de Contenedores C4 (nivel 2):
+    - [x] Diseñar diagrama con MermaidJS en `docs/architecture/c4-containers.md`
+    - [x] Documentar componentes: Next.js App (Frontend + Backend), Prisma ORM, SQLite
+    - [x] Describir flujo de datos entre contenedores
 
 ### Diseño de Base de Datos
-- [ ] Crear diagrama Entidad-Relación (ER):
-    - [ ] Diseñar diagrama con MermaidJS en `docs/database/er-diagram.md`
-    - [ ] Validar contra schema Prisma existente (`src/prisma/schema.prisma`)
-    - [ ] Documentar modelos `Habit` y `HabitLog`, relaciones, tipos de datos y constraints
+- [x] Crear diagrama Entidad-Relación (ER):
+    - [x] Diseñar diagrama con MermaidJS en `docs/database/er-diagram.md`
+    - [x] Validar contra schema Prisma existente (`src/prisma/schema.prisma`)
+    - [x] Documentar modelos `Habit` y `HabitLog`, relaciones, tipos de datos y constraints
 
 ---
 
