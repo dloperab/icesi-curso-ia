@@ -98,7 +98,7 @@ export async function GET(
     );
     const totalLogs = habit.logs.length;
 
-    // Construct stats response
+    // Construct stats response including logs for chart visualization
     const stats = {
       habitId: habit.id,
       currentStreak,
@@ -106,6 +106,7 @@ export async function GET(
       completionRate,
       nextExpectedDate: nextExpectedDate ? nextExpectedDate.toISOString() : null,
       totalLogs,
+      logs: habit.logs, // Include logs for chart visualization
     };
 
     return NextResponse.json(stats, { status: 200 });

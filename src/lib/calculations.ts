@@ -283,7 +283,11 @@ export function getNextExpectedDate(
   if (habit.frequency === 'daily') {
     // Check if already completed today
     if (getDaysDifference(mostRecentLog, now) === 0) {
-      return null; // Already completed today
+      // Already completed today, next expected is tomorrow
+      const tomorrow = new Date(now);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0); // Start of tomorrow
+      return tomorrow;
     }
     // Next expected is today if last completion was yesterday or earlier
     return now;
@@ -294,7 +298,12 @@ export function getNextExpectedDate(
     const logWeek = getWeekNumber(mostRecentLog);
 
     if (nowWeek === logWeek) {
-      return null; // Already completed this week
+      // Already completed this week, next expected is next week (Monday)
+      const nextWeek = new Date(now);
+      const daysUntilMonday = (8 - nextWeek.getDay()) % 7 || 7;
+      nextWeek.setDate(nextWeek.getDate() + daysUntilMonday);
+      nextWeek.setHours(0, 0, 0, 0); // Start of next Monday
+      return nextWeek;
     }
     // Not completed this week, expected is now
     return now;

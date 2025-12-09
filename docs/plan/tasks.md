@@ -117,68 +117,68 @@ Este plan descompone el desarrollo del MVP en **5 fases secuenciales** con **25 
 ## Fase 3: UI Components
 
 ### Formularios
-- [ ] Crear componente `HabitForm`:
-    - [ ] Implementar Client Component en `src/components/HabitForm.tsx` con `'use client'`
-    - [ ] Agregar inputs: nombre (required), descripción (optional), frecuencia (radio: daily/weekly)
-    - [ ] Integrar validación con Zod schema de `lib/validations.ts`
-    - [ ] Conectar con `useHabits().createHabit` y mostrar loading state en botón
-    - [ ] Implementar reset form tras éxito y cerrar Dialog automáticamente
-    - [ ] Usar componentes shadcn/ui: `Dialog`, `Input`, `Label`, `Textarea`, `Button`
-    - [ ] Crear tests con RTL en `src/__tests__/components/HabitForm.test.tsx` (submit exitoso, validación, error de API)
+- [x] Crear componente `HabitForm`:
+    - [x] Implementar Client Component en `src/components/HabitForm.tsx` con `'use client'`
+    - [x] Agregar inputs: nombre (required), descripción (optional), frecuencia (radio: daily/weekly)
+    - [x] Integrar validación con Zod schema de `lib/validations.ts`
+    - [x] Conectar con `useHabits().createHabit` y mostrar loading state en botón
+    - [x] Implementar reset form tras éxito y cerrar Dialog automáticamente
+    - [x] Usar componentes shadcn/ui: `Dialog`, `Input`, `Label`, `Textarea`, `Button`
+    - [x] Crear tests con RTL en `src/__tests__/components/HabitForm.test.tsx` (submit exitoso, validación, error de API)
 
 ### Tarjetas de Hábito
-- [ ] Crear componente `HabitCard`:
-    - [ ] Implementar Client Component en `src/components/HabitCard.tsx`
-    - [ ] Mostrar: nombre, descripción truncada, frecuencia (Badge), racha actual
-    - [ ] Agregar botón check-in (Checkbox) llamando `useHabitLogs().createLog`
-    - [ ] Agregar botón "Ver detalles" con navegación a dashboard individual
-    - [ ] Agregar botón eliminar con Dialog de confirmación
-    - [ ] Implementar indicadores visuales: racha activa (🔥), sin racha (⚫)
-    - [ ] Usar componentes shadcn/ui: `Card`, `Badge`, `Checkbox`, `Button`
-    - [ ] Crear tests con RTL en `src/__tests__/components/HabitCard.test.tsx` (render, check-in, eliminar, navegación)
+- [x] Crear componente `HabitCard`:
+    - [x] Implementar Client Component en `src/components/HabitCard.tsx`
+    - [x] Mostrar: nombre, descripción truncada, frecuencia (Badge), racha actual
+    - [x] Agregar botón check-in (Checkbox) llamando `useHabitLogs().createLog`
+    - [x] Agregar botón "Ver detalles" con navegación a dashboard individual
+    - [x] Agregar botón eliminar con Dialog de confirmación
+    - [x] Implementar indicadores visuales: racha activa (🔥), sin racha (⚫)
+    - [x] Usar componentes shadcn/ui: `Card`, `Badge`, `Checkbox`, `Button`
+    - [x] Crear tests con RTL en `src/__tests__/components/HabitCard.test.tsx` (render, check-in, eliminar, navegación)
 
 ### Listas y Contenedores
-- [ ] Crear componente `HabitList`:
-    - [ ] Implementar Client Component en `src/components/HabitList.tsx`
-    - [ ] Consumir `useHabits()` y `useHabitStats()` para cada habit
-    - [ ] Implementar grid responsivo: 1 columna (mobile), 2 (tablet), 3 (desktop)
-    - [ ] Agregar estado vacío con mensaje y botón "Crear primer hábito"
-    - [ ] Agregar loading state con skeletons (Tailwind `animate-pulse`)
-    - [ ] Agregar error state con mensaje y botón "Reintentar"
-    - [ ] Crear tests con RTL en `src/__tests__/components/HabitList.test.tsx` (lista con hábitos, estado vacío, loading, error)
+- [x] Crear componente `HabitList`:
+    - [x] Implementar Client Component en `src/components/HabitList.tsx`
+    - [x] Consumir `useHabits()` y `useHabitStats()` para cada habit
+    - [x] Implementar grid responsivo: 1 columna (mobile), 2 (tablet), 3 (desktop)
+    - [x] Agregar estado vacío con mensaje y botón "Crear primer hábito"
+    - [x] Agregar loading state con skeletons (Tailwind `animate-pulse`)
+    - [x] Agregar error state con mensaje y botón "Reintentar"
+    - [x] Crear tests con RTL en `src/__tests__/components/HabitList.test.tsx` (lista con hábitos, estado vacío, loading, error)
 
 ### Visualización de Datos
-- [ ] Crear componente `HabitChart` para gráficos con Recharts:
-    - [ ] Implementar Client Component en `src/components/HabitChart.tsx`
-    - [ ] Soportar tipos de gráfico: `line` y `bar` (prop `type`)
-    - [ ] Implementar responsive container con ajuste a viewport
-    - [ ] Integrar tema Tailwind en colores de gráfico
-    - [ ] Agregar tooltip con información detallada
-    - [ ] Crear utilidad `transformLogsToChartData()` en `src/lib/chartUtils.ts` (agrupar logs por día/semana)
-    - [ ] Crear tests en `src/__tests__/components/HabitChart.test.tsx` (render con datos, datos vacíos)
-    - [ ] Crear tests de transformación en `src/__tests__/lib/chartUtils.test.ts`
+- [x] Crear componente `HabitChart` para gráficos con Recharts:
+    - [x] Implementar Client Component en `src/components/HabitChart.tsx`
+    - [x] Soportar tipos de gráfico: `line` y `bar` (prop `type`)
+    - [x] Implementar responsive container con ajuste a viewport
+    - [x] Integrar tema Tailwind en colores de gráfico
+    - [x] Agregar tooltip con información detallada
+    - [x] Crear utilidad `transformLogsToChartData()` en `src/lib/chartUtils.ts` (agrupar logs por día/semana)
+    - [x] Crear tests en `src/__tests__/components/HabitChart.test.tsx` (render con datos, datos vacíos)
+    - [x] Crear tests de transformación en `src/__tests__/lib/chartUtils.test.ts`
 
 ### Dashboard Individual
-- [ ] Crear componente `HabitDashboard`:
-    - [ ] Implementar Client Component en `src/components/HabitDashboard.tsx`
-    - [ ] Consumir `useHabitStats(habitId)` con filtro temporal (últimos 30 días por defecto)
-    - [ ] Mostrar métricas en grid de cards: racha actual, racha máxima, tasa completitud, total logs
-    - [ ] Integrar `HabitChart` para visualización de progreso temporal
-    - [ ] Agregar selector de rango temporal: 7 días, 30 días, 90 días
-    - [ ] Agregar botón volver a lista principal
-    - [ ] Implementar loading state con skeletons y error state con fallback
-    - [ ] Crear tests con RTL en `src/__tests__/components/HabitDashboard.test.tsx` (render con datos, cambio de rango, error)
+- [x] Crear componente `HabitDashboard`:
+    - [x] Implementar Client Component en `src/components/HabitDashboard.tsx`
+    - [x] Consumir `useHabitStats(habitId)` con filtro temporal (últimos 30 días por defecto)
+    - [x] Mostrar métricas en grid de cards: racha actual, racha máxima, tasa completitud, total logs
+    - [x] Integrar `HabitChart` para visualización de progreso temporal
+    - [x] Agregar selector de rango temporal: 7 días, 30 días, 90 días
+    - [x] Agregar botón volver a lista principal
+    - [x] Implementar loading state con skeletons y error state con fallback
+    - [x] Crear tests con RTL en `src/__tests__/components/HabitDashboard.test.tsx` (render con datos, cambio de rango, error)
 
 ---
 
 ## Fase 4: Integration & Polish
 
 ### Integración de Página Principal
-- [ ] Actualizar página principal en `src/app/page.tsx`:
-    - [ ] Reemplazar código starter de Next.js con aplicación completa
-    - [ ] Agregar header con título "Mis Hábitos" y botón "Crear Hábito" abriendo `HabitForm`
-    - [ ] Integrar `HabitList` como contenido principal
-    - [ ] Implementar layout responsivo con Tailwind container/padding
+- [x] Actualizar página principal en `src/app/page.tsx`:
+    - [x] Reemplazar código starter de Next.js con aplicación completa
+    - [x] Agregar header con título "Mis Hábitos" y botón "Crear Hábito" abriendo `HabitForm`
+    - [x] Integrar `HabitList` como contenido principal
+    - [x] Implementar layout responsivo con Tailwind container/padding
     - [ ] Crear test E2E en `src/e2e/` (abrir app, ver lista, crear hábito)
 
 ### Estados de Carga y Error

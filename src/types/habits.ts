@@ -82,6 +82,9 @@ export interface HabitStats {
 
   /** Total number of logs/completions */
   totalLogs: number;
+
+  /** Associated habit logs for chart visualization (optional) */
+  logs?: HabitLog[];
 }
 
 /**
