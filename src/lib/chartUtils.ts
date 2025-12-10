@@ -117,9 +117,26 @@ export function filterLogsByDateRange(
   }
 
   return logs.filter((log) => {
+    // Use UTC date for comparison to avoid timezone issues
     const logDate = new Date(log.completedAt);
-    if (from && logDate < from) return false;
-    if (to && logDate > to) return false;
+    const logDateStr = logDate.getUTCFullYear() + '-' +
+      String(logDate.getUTCMonth() + 1).padStart(2, '0') + '-' +
+      String(logDate.getUTCDate()).padStart(2, '0');
+
+    if (from) {
+      const fromDateStr = from.getUTCFullYear() + '-' +
+        String(from.getUTCMonth() + 1).padStart(2, '0') + '-' +
+        String(from.getUTCDate()).padStart(2, '0');
+      if (logDateStr < fromDateStr) return false;
+    }
+
+    if (to) {
+      const toDateStr = to.getUTCFullYear() + '-' +
+        String(to.getUTCMonth() + 1).padStart(2, '0') + '-' +
+        String(to.getUTCDate()).padStart(2, '0');
+      if (logDateStr > toDateStr) return false;
+    }
+
     return true;
   });
 }

@@ -213,39 +213,39 @@ Este plan descompone el desarrollo del MVP en **5 fases secuenciales** con **25 
 ## Fase 5: Testing & Quality Assurance
 
 ### Tests Unitarios
-- [ ] Completar cobertura de unit tests (target ≥60%):
-    - [ ] Validar coverage de `lib/calculations.ts` (target 100%)
-    - [ ] Crear tests de Zod schemas en `lib/validations.ts` (success, fail, edge cases)
-    - [ ] Validar coverage de `lib/chartUtils.ts`
-    - [ ] Ejecutar `npm run test:coverage` y validar threshold
-    - [ ] Asegurar suite completa corre en <10 segundos
+- [x] Completar cobertura de unit tests (target ≥60%):
+    - [x] Validar coverage de `lib/calculations.ts` (target 100%)
+    - [x] Crear tests de Zod schemas en `lib/validations.ts` (success, fail, edge cases)
+    - [x] Validar coverage de `lib/chartUtils.ts`
+    - [x] Ejecutar `npm run test:coverage` y validar threshold
+    - [x] Asegurar suite completa corre en <10 segundos
 
 ### Tests de Componentes
-- [ ] Validar cobertura de component tests con RTL:
-    - [ ] Verificar tests de `HabitForm` (render, interacción, error)
-    - [ ] Verificar tests de `HabitCard` (render, check-in, eliminar)
-    - [ ] Verificar tests de `HabitList` (lista, vacío, loading, error)
-    - [ ] Verificar tests de `HabitChart` (render, datos vacíos)
-    - [ ] Verificar tests de `HabitDashboard` (render, cambio rango, error)
-    - [ ] Validar uso de queries de accesibilidad (`getByRole`, `getByLabelText`)
+- [x] Validar cobertura de component tests con RTL:
+    - [x] Verificar tests de `HabitForm` (render, interacción, error)
+    - [x] Verificar tests de `HabitCard` (render, check-in, eliminar)
+    - [x] Verificar tests de `HabitList` (lista, vacío, loading, error)
+    - [x] Verificar tests de `HabitChart` (render, datos vacíos)
+    - [x] Verificar tests de `HabitDashboard` (render, cambio rango, error)
+    - [x] Validar uso de queries de accesibilidad (`getByRole`, `getByLabelText`)
 
 ### Tests End-to-End
-- [ ] Crear tests E2E con Playwright para flujos críticos:
-    - [ ] Flujo 1 en `src/e2e/create-habit-flow.spec.ts`: Abrir app → Click "Crear Hábito" → Llenar form → Submit → Verificar en lista
-    - [ ] Flujo 2 en `src/e2e/checkin-flow.spec.ts`: Click checkbox check-in → Verificar racha actualizada → Refrescar página → Validar persistencia
-    - [ ] Flujo 3 en `src/e2e/dashboard-flow.spec.ts`: Click "Ver detalles" → Verificar métricas → Verificar gráfico → Cambiar rango temporal (7→30 días)
-    - [ ] Configurar setup (crear datos de test) y teardown (limpiar DB)
-    - [ ] Validar tests pasan en Chromium, Firefox, WebKit
+- [x] Crear tests E2E con Playwright para flujos críticos:
+    - [x] Flujo 1 en `src/e2e/create-habit-flow.spec.ts`: Abrir app → Click "Crear Hábito" → Llenar form → Submit → Verificar en lista
+    - [x] Flujo 2 en `src/e2e/checkin-flow.spec.ts`: Click checkbox check-in → Verificar racha actualizada → Refrescar página → Validar persistencia
+    - [x] Flujo 3 en `src/e2e/dashboard-flow.spec.ts`: Click "Ver detalles" → Verificar métricas → Verificar gráfico → Cambiar rango temporal (7→30 días)
+    - [x] Configurar setup (crear datos de test) y teardown (limpiar DB)
+    - [x] Validar tests pasan en Chromium, Firefox, WebKit
 
 ### Validación de Calidad
-- [ ] Verificar thresholds y estándares del proyecto:
-    - [ ] Ejecutar `npm run lint` sin errores
-    - [ ] Ejecutar `npm run type-check` sin errores TypeScript
-    - [ ] Verificar ningún archivo >500 líneas (script o revisión manual)
-    - [ ] Verificar componentes <150 líneas
-    - [ ] Validar pre-commit hooks funcionando (Husky + lint-staged)
-    - [ ] Actualizar `src/README.md` con instrucciones de desarrollo
-    - [ ] Crear `.env.example` si se usan variables de entorno
+- [x] Verificar thresholds y estándares del proyecto:
+    - [x] Ejecutar `npm run lint` sin errores
+    - [x] Ejecutar `npm run type-check` sin errores TypeScript
+    - [x] Verificar ningún archivo >500 líneas (script o revisión manual)
+    - [x] Verificar componentes <150 líneas
+    - [x] Validar pre-commit hooks funcionando (Husky + lint-staged)
+    - [x] Actualizar `src/README.md` con instrucciones de desarrollo
+    - [x] Crear `.env.example` si se usan variables de entorno
 
 ---
 

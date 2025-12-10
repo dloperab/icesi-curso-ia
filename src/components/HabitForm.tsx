@@ -56,7 +56,7 @@ export function HabitForm({ children }: HabitFormProps) {
       const descValue = descriptionRef.current?.value;
       const formData = {
         name: nameRef.current?.value || '',
-        description: descValue ? descValue : undefined,
+        description: descValue && descValue.trim() ? descValue.trim() : undefined,
         frequency: (frequencyRef.current?.value as 'daily' | 'weekly') || 'daily',
       };
 

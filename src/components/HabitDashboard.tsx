@@ -8,7 +8,7 @@ import { HabitChart } from '@/components/HabitChart';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { transformLogsToChartData, filterLogsByDateRange } from '@/lib/chartUtils';
+import { transformLogsToChartData } from '@/lib/chartUtils';
 import type { HabitLog } from '@/types/habits';
 
 interface HabitDashboardProps {

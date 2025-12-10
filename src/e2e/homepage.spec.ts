@@ -5,7 +5,7 @@ test.describe('Homepage', () => {
     await page.goto('/')
 
     // Verificar que la página carga
-    await expect(page).toHaveTitle(/Create Next App/)
+    await expect(page).toHaveTitle(/Mis Hábitos|Habit Tracker/)
   })
 
   test('should have main heading', async ({ page }) => {

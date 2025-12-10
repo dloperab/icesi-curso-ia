@@ -27,6 +27,7 @@ export const createHabitSchema = z.object({
     .string()
     .max(500, 'Description must be 500 characters or less')
     .trim()
+    .nullable()
     .optional(),
 
   frequency: habitFrequencySchema,

@@ -93,7 +93,7 @@ export interface HabitStats {
  */
 export interface CreateHabitInput {
   name: string;
-  description?: string;
+  description?: string | null;
   frequency: HabitFrequency;
 }
 

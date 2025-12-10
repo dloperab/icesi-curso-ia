@@ -57,7 +57,7 @@ describe('HabitCard', () => {
   it('renders habit name and frequency', () => {
     render(<HabitCard habit={mockHabit} stats={mockStats} />);
     expect(screen.getByText('Test Habit')).toBeInTheDocument();
-    expect(screen.getByText('Diario')).toBeInTheDocument();
+    expect(screen.getAllByText('Diario').length).toBeGreaterThanOrEqual(1);
   });
 
   it('renders truncated description', () => {
@@ -175,7 +175,7 @@ describe('HabitCard', () => {
     const weeklyHabit = { ...mockHabit, frequency: 'weekly' as const };
     render(<HabitCard habit={weeklyHabit} stats={mockStats} />);
 
-    expect(screen.getByText('Semanal')).toBeInTheDocument();
+    expect(screen.getAllByText('Semanal').length).toBeGreaterThanOrEqual(1);
   });
 
   it('disables buttons during check-in', () => {

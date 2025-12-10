@@ -126,8 +126,8 @@ describe('chartUtils', () => {
     });
 
     it('excludes logs outside range boundaries', () => {
-      const fromDate = new Date('2024-01-02T00:00:00');
-      const toDate = new Date('2024-01-02T23:59:59');
+      const fromDate = new Date('2024-01-02');
+      const toDate = new Date('2024-01-02');
       const filtered = filterLogsByDateRange(mockLogs, fromDate, toDate);
 
       expect(filtered.length).toBe(1); // Only Jan 02
@@ -168,14 +168,18 @@ describe('chartUtils', () => {
       const stats = getLogStatistics(mockLogs);
 
       expect(stats.earliestDate).not.toBeNull();
-      expect(stats.earliestDate?.toDateString()).toBe(new Date('2024-01-01').toDateString());
+      // Compare dates by normalizing to UTC date strings
+      const expectedDate = new Date('2024-01-01T10:00:00').toDateString();
+      expect(stats.earliestDate?.toDateString()).toBe(expectedDate);
     });
 
     it('identifies latest date', () => {
       const stats = getLogStatistics(mockLogs);
 
       expect(stats.latestDate).not.toBeNull();
-      expect(stats.latestDate?.toDateString()).toBe(new Date('2024-01-03').toDateString());
+      // Compare dates by normalizing to UTC date strings
+      const expectedDate = new Date('2024-01-03T10:00:00').toDateString();
+      expect(stats.latestDate?.toDateString()).toBe(expectedDate);
     });
 
     it('handles single log', () => {
