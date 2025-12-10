@@ -182,11 +182,11 @@ Este plan descompone el desarrollo del MVP en **5 fases secuenciales** con **25 
     - [ ] Crear test E2E en `src/e2e/` (abrir app, ver lista, crear hábito)
 
 ### Estados de Carga y Error
-- [ ] Crear archivos especiales de Next.js para UX:
-    - [ ] Crear `src/app/loading.tsx` con skeleton de página completa (mismo grid que HabitList, `animate-pulse`)
-    - [ ] Crear `src/app/error.tsx` como Client Component con error boundary
-    - [ ] Implementar en error.tsx: mensaje amigable, botón "Intentar de nuevo", log a consola
-    - [ ] Validar manualmente simulando error en API
+- [x] Crear archivos especiales de Next.js para UX:
+    - [x] Crear `src/app/loading.tsx` con skeleton de página completa (mismo grid que HabitList, `animate-pulse`)
+    - [x] Crear `src/app/error.tsx` como Client Component con error boundary
+    - [x] Implementar en error.tsx: mensaje amigable, botón "Intentar de nuevo", log a consola
+    - [x] Validar manualmente simulando error en API
 
 ### SEO y Metadata
 - [ ] Optimizar metadata y SEO en `src/app/layout.tsx`:

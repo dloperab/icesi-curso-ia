@@ -95,5 +95,9 @@ function HabitListItem({ habitId, habit }: { habitId: string; habit: Habit }) {
   const { stats, isLoading, mutate: mutateStats } = useHabitStats(habitId);
 
   // While loading, show the card without stats
-  return <HabitCard habit={habit} stats={isLoading ? undefined : stats} onStatsChange={mutateStats} />;
+  const handleStatsChange = async () => {
+    mutateStats();
+  };
+
+  return <HabitCard habit={habit} stats={isLoading ? undefined : stats} onStatsChange={handleStatsChange} />;
 }
