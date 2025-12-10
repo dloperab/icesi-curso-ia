@@ -9,30 +9,28 @@ import { HabitLog } from '@/types/habits';
 import { createHabitLogSchema } from '@/lib/validations';
 
 interface UseHabitLogsReturn {
-  createLog: (habitId: string, note?: string) => Promise<HabitLog>;
+  createLog: (habitId: string, note?: string, onSuccess?: () => Promise<void>) => Promise<HabitLog>;
   isCreating: boolean;
 }
 
 /**
  * Hook to manage habit logs with revalidation
- * Revalidates both useHabits and useHabitStats after creating a log
+ * Revalidates useHabits and any provided callback after creating a log
  * @returns Object with createLog function and loading state
  */
 export function useHabitLogs(): UseHabitLogsReturn {
   const [isCreating, setIsCreating] = useState(false);
   const { mutate: mutateHabits } = useSWR('/api/habits');
-  // Note: mutateHabitStats would be called dynamically with the habit ID
-  // This is handled in the createLog function
-  const { mutate: mutateSWR } = useSWR(null);
 
   /**
    * Create a new habit log (check-in)
    * @param habitId - ID of the habit to log
    * @param note - Optional note for the check-in
+   * @param onSuccess - Optional callback to execute after successful log creation (e.g., to mutate stats)
    * @returns Created log
    */
   const createLog = useCallback(
-    async (habitId: string, note?: string): Promise<HabitLog> => {
+    async (habitId: string, note?: string, onSuccess?: () => Promise<void>): Promise<HabitLog> => {
       setIsCreating(true);
 
       try {
@@ -61,17 +59,20 @@ export function useHabitLogs(): UseHabitLogsReturn {
 
         const { log } = await response.json();
 
-        // Revalidate multiple keys after successful creation
-        await mutateHabits(); // Revalidate habits list (in case stats changed)
-        // Also revalidate the stats for this specific habit
-        await mutateSWR(`/api/habits/${habitId}/stats`);
+        // Revalidate habits list (in case stats changed)
+        await mutateHabits();
+
+        // Execute optional callback for additional revalidations (e.g., habit stats)
+        if (onSuccess) {
+          await onSuccess();
+        }
 
         return log;
       } finally {
         setIsCreating(false);
       }
     },
-    [mutateHabits, mutateSWR]
+    [mutateHabits]
   );
 
   return {

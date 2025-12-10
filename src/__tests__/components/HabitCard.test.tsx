@@ -92,19 +92,20 @@ describe('HabitCard', () => {
     expect(screen.getByText('⚫')).toBeInTheDocument();
   });
 
-  it('calls createLog when check-in button is clicked', async () => {
+  it('calls createLog with onStatsChange callback when check-in button is clicked', async () => {
     const mockCreateLog = vi.fn().mockResolvedValue({});
+    const mockOnStatsChange = vi.fn();
     mockUseHabitLogs.mockReturnValue({
       createLog: mockCreateLog,
       isCreating: false,
     });
 
-    render(<HabitCard habit={mockHabit} stats={mockStats} />);
+    render(<HabitCard habit={mockHabit} stats={mockStats} onStatsChange={mockOnStatsChange} />);
     const checkInButton = screen.getByRole('button', { name: /completado hoy/i });
 
     await userEvent.click(checkInButton);
 
-    expect(mockCreateLog).toHaveBeenCalledWith('habit-1');
+    expect(mockCreateLog).toHaveBeenCalledWith('habit-1', undefined, mockOnStatsChange);
   });
 
   it('displays error message on check-in failure', async () => {

@@ -181,7 +181,7 @@ describe('useHabitLogs - API calls', () => {
       expect(typeof mockHookReturn.isCreating).toBe('boolean');
     });
 
-    it('createLog should accept habitId and optional note', () => {
+    it('createLog should accept habitId, optional note, and optional callback', () => {
       const createLog = vi.fn();
 
       // Verify function can be called with different arguments
@@ -195,15 +195,19 @@ describe('useHabitLogs - API calls', () => {
       createLog('habit-1', 'Great workout');
       expect(createLog).toHaveBeenCalledWith('habit-1', 'Great workout');
 
-      // Verify it was called twice
-      expect(createLog).toHaveBeenCalledTimes(2);
+      // Call with habitId, note, and callback
+      const callback = vi.fn();
+      createLog('habit-1', 'Great workout', callback);
+      expect(createLog).toHaveBeenCalledWith('habit-1', 'Great workout', callback);
+
+      // Verify it was called thrice
+      expect(createLog).toHaveBeenCalledTimes(3);
     });
   });
 
   describe('Revalidation behavior', () => {
-    it('should revalidate habits and stats after successful creation', async () => {
+    it('should revalidate habits after successful creation', async () => {
       const mutateHabits = vi.fn();
-      const mutateSWR = vi.fn();
 
       vi.mocked(global.fetch).mockResolvedValueOnce(
         new Response(JSON.stringify({ log: mockLog }), { status: 201 })
@@ -218,19 +222,43 @@ describe('useHabitLogs - API calls', () => {
       });
 
       if (response.ok) {
-        // These would be called in the actual hook
+        // This would be called in the actual hook
         await mutateHabits();
-        await mutateSWR(`/api/habits/${habitId}/stats`);
       }
 
       expect(response.ok).toBe(true);
       expect(mutateHabits).toHaveBeenCalledOnce();
-      expect(mutateSWR).toHaveBeenCalledWith(`/api/habits/${habitId}/stats`);
+    });
+
+    it('should call onSuccess callback after successful creation', async () => {
+      const mutateHabits = vi.fn();
+      const onSuccess = vi.fn();
+
+      vi.mocked(global.fetch).mockResolvedValueOnce(
+        new Response(JSON.stringify({ log: mockLog }), { status: 201 })
+      );
+
+      const habitId = 'habit-1';
+      const response = await fetch(`/api/habits/${habitId}/logs`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ note: 'Test' }),
+      });
+
+      if (response.ok) {
+        // Simulate hook behavior
+        await mutateHabits();
+        await onSuccess();
+      }
+
+      expect(response.ok).toBe(true);
+      expect(mutateHabits).toHaveBeenCalledOnce();
+      expect(onSuccess).toHaveBeenCalledOnce();
     });
 
     it('should not revalidate on error', async () => {
       const mutateHabits = vi.fn();
-      const mutateSWR = vi.fn();
+      const onSuccess = vi.fn();
 
       vi.mocked(global.fetch).mockResolvedValueOnce(
         new Response(JSON.stringify({ error: 'Conflict' }), { status: 409 })
@@ -245,12 +273,12 @@ describe('useHabitLogs - API calls', () => {
       // Only revalidate on success
       if (response.ok) {
         await mutateHabits();
-        await mutateSWR('/api/habits/habit-1/stats');
+        await onSuccess();
       }
 
       expect(response.ok).toBe(false);
       expect(mutateHabits).not.toHaveBeenCalled();
-      expect(mutateSWR).not.toHaveBeenCalled();
+      expect(onSuccess).not.toHaveBeenCalled();
     });
   });
 });

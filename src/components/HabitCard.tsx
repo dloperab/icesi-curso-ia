@@ -20,6 +20,7 @@ import {
 interface HabitCardProps {
   habit: Habit;
   stats?: HabitStats;
+  onStatsChange?: () => Promise<void>;
 }
 
 /**
@@ -27,7 +28,7 @@ interface HabitCardProps {
  * Shows habit name, description, frequency, current streak, and check-in button
  * Includes options for viewing details and deleting the habit
  */
-export function HabitCard({ habit, stats }: HabitCardProps) {
+export function HabitCard({ habit, stats, onStatsChange }: HabitCardProps) {
   const router = useRouter();
   const { deleteHabit } = useHabits();
   const { createLog, isCreating } = useHabitLogs();
@@ -43,7 +44,7 @@ export function HabitCard({ habit, stats }: HabitCardProps) {
   const handleCheckIn = async () => {
     setCheckInError(null);
     try {
-      await createLog(habit.id);
+      await createLog(habit.id, undefined, onStatsChange);
       // Clear any existing error on success
       setCheckInError(null);
     } catch (error) {
