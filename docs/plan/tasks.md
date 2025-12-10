@@ -189,14 +189,14 @@ Este plan descompone el desarrollo del MVP en **5 fases secuenciales** con **25 
     - [x] Validar manualmente simulando error en API
 
 ### SEO y Metadata
-- [ ] Optimizar metadata y SEO en `src/app/layout.tsx`:
-    - [ ] Actualizar export `metadata` con título: "Sistema de Seguimiento de Hábitos"
-    - [ ] Agregar descripción concisa del propósito del app
-    - [ ] Configurar Open Graph metadata (título, descripción, imagen)
-    - [ ] Configurar Twitter Card metadata
-    - [ ] Agregar `viewport` y `themeColor` configuration
-    - [ ] Crear/agregar favicon en `public/`
-    - [ ] Validar con Open Graph Debugger y Twitter Card Validator
+- [x] Optimizar metadata y SEO en `src/app/layout.tsx`:
+    - [x] Actualizar export `metadata` con título: "Sistema de Seguimiento de Hábitos"
+    - [x] Agregar descripción concisa del propósito del app
+    - [x] Configurar Open Graph metadata (título, descripción, imagen)
+    - [x] Configurar Twitter Card metadata
+    - [x] Agregar `viewport` y `themeColor` configuration
+    - [x] Crear/agregar favicon en `public/`
+    - [x] Validar con Open Graph Debugger y Twitter Card Validator
 
 ### Validación de Responsiveness
 - [ ] Auditoría y ajustes mobile-first:
