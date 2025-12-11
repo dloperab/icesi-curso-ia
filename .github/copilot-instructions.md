@@ -14,6 +14,14 @@ src/                    # Aplicación Next.js
 └── public/             # Assets estáticos
 ```
 
+---
+
+## Diseño del Sistema
+- Diagramas de Arquitectura - Modelo C4: `docs/architecture/`
+- Diseño de Base de Datos: `docs/database/`
+
+---
+
 ## Stack tecnológico actual
 - **Framework**: Next.js 16.0.6 (App Router exclusivamente)
 - **React**: 19.2.0 (Server Components por defecto)

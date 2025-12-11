@@ -2,256 +2,73 @@
 agent: Plan
 ---
 
-# Objetivo
+# Generación de Tareas de Desarrollo
 
-Generar un **plan de desarrollo detallado** para el Sistema de Seguimiento de Hábitos y Metas, guardándolo en `docs/plan/planning.md`.
-
----
-
-# Descripción del proyecto
-
-Aplicación full-stack para **Sistema de Seguimiento de Hábitos y Metas**, dirigida a usuarios que desean monitorear su progreso en la formación de hábitos diarios y semanales.
-
-**Componentes:**
-- **Frontend**: Dashboard interactivo con visualización de progreso y estadísticas
-- **Backend**: API integrada en Next.js para gestión de hábitos y logs
-- **Base de datos**: SQLite embebida con Prisma ORM
-
-**Funcionalidades principales:**
-- Crear, listar y gestionar hábitos (nombre, descripción, frecuencia)
-- Registrar check-ins diarios/semanales
-- Calcular estadísticas: rachas actuales/máximas, tasa de cumplimiento
-- Visualizar progreso con gráficos y dashboard interactivo
+Eres un arquitecto de software senior especializado en crear planes de desarrollo de software. Tu objetivo es transformar el archivo de planeación `docs/plan/planning.md` en un conjunto estructurado y ejecutable de tareas de desarrollo.
 
 ---
 
-# Información técnica de referencia
+## Tareas a generar
 
-## Stack tecnológico
+### 1. Diseño de arquitectura (Modelo C4)
+- **Diagrama de Contexto**: Sistema y actores externos
+- **Diagrama de Contenedores**: Componentes principales (Frontend, API, DB)
+- Usar **MermaidJS** para los diagramas
+- Incluir tarea de documentación
 
-### Frontend
-- **Framework**: Next.js 16+ (App Router)
-- **Lenguaje**: TypeScript
-- **UI**: Tailwind CSS + shadcn/ui (componentes)
-- **Gráficos**: Recharts
-- **Ubicación**: `src/app/` (App Router structure)
+### 2. Diseño de base de datos
+- **Diagrama Entidad-Relación (ER)** usando MermaidJS
+- Validar contra esquema Prisma existente (`src/prisma/schema.prisma`)
+- Verificar modelos, relaciones y tipos de datos
+- Incluir tarea de documentación
 
-### Backend
-- **Framework**: Next.js API Routes (App Router)
-- **Lenguaje**: TypeScript
-- **ORM**: Prisma
-- **Base de datos**: SQLite (local, embebida)
-- **Ubicación**: `src/app/api/`
+### 3. Desarrollo de features
+- Organizar por módulos/funcionalidades
+- Para cada feature principal, incluir:
+  - Tareas de backend (API Routes, lógica de negocio)
+  - Tareas de frontend (componentes, páginas, hooks)
+  - **Tarea de pruebas unitarias** para cada componente principal desarrollado
+- Considerar dependencias entre tareas (ej: backend antes de frontend)
 
-### Testing
-- **Unit/Integration**: Vitest
-- **E2E**: Playwright
-- **Coverage**: c8 (integrado con Vitest)
-- **Ubicación tests**: `src/__tests__/` y `*.test.ts` co-located
-
-### Tooling
-- **Linter**: ESLint
-- **Formatter**: Prettier
-- **Type checking**: TypeScript strict mode
-- **Git hooks**: Husky (opcional)
-
-### Base de datos
-- **Motor**: SQLite (archivo local)
-- **ORM**: Prisma
-- **Script de creación**: `scripts/database/init-db.sql`
-- **Ubicación**: `src/prisma/habits.db`
-- **Estado**: Tablas creadas, sin datos iniciales
+### 4. Fase final de testing
+- **Pruebas de integración**: Verificar flujo completo de features críticas
+- **Pruebas E2E** (Playwright): 2-3 escenarios end-to-end más importantes
+- Verificación de coverage mínimo (60%)
 
 ---
 
-# Modelo de datos
+## Formato de salida
 
-## Entidades principales
+Generar el plan de trabajo en formato markdown con la siguiente estructura:
 
-### Habit (Hábito)
-```prisma
-model Habit {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  frequency   String   // 'daily' | 'weekly'
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  logs        HabitLog[]
-}
-```
+## Fase [NÚMERO]: [NOMBRE DE LA FASE]
 
-### HabitLog (Registro de cumplimiento)
-```prisma
-model HabitLog {
-  id          String   @id @default(cuid())
-  habitId     String
-  habit       Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
-  completedAt DateTime @default(now())
-  note        String?
-  createdAt   DateTime @default(now())
-  
-  @@unique([habitId, completedAt]) // No duplicados mismo día
-}
-```
+### [CATEGORÍA/MÓDULO]
+- [ ] [Descripción de la tarea principal]
+- [ ] [Descripción de tarea con subtareas]:
+    - [ ] Subtarea 1: [Descripción específica]
+    - [ ] Subtarea 2: [Descripción específica]
+    - [ ] Subtarea 3: [Descripción específica]
+- [ ] [Tarea que requiere investigación] (ej. APIs externas, tecnologías, patrones de diseño)
+- [ ] [Tarea de implementación con detalles técnicos] (crear tablas, endpoints, componentes)
+- [ ] [Tarea de integración] para conectar [componente A] con [componente B]
 
-### HabitStats (Calculado, no persistido)
-```typescript
-interface HabitStats {
-  habitId: string
-  currentStreak: number
-  maxStreak: number
-  totalCompletions: number
-  completionRate: number
-  lastCompletedAt: Date | null
-}
-```
+Donde:
+
+1. **Fases** (ej: Diseño, Desarrollo Core, Testing)
+2. **Subfases** (ej: Backend, Frontend, Integración)
+3. **Tareas** con:
+   - Título claro
+   - Descripción breve
+   - Dependencias (si aplica)
+   - Prioridad (Alta/Media/Baja)
+
+Guardar el detalle de tareas en la ruta `docs/plan/tasks.md`.
 
 ---
 
-## Detalles de funcionalidades
+## Instrucciones adicionales
 
-### Backend (API Routes)
-- Endpoints para crear, listar, obtener y eliminar hábitos
-- Endpoints para registrar y listar logs de cumplimiento
-- Cálculo de estadísticas: rachas (actual/máxima), total cumplimientos, tasa de cumplimiento
-
-### Frontend
-- **Página principal**: Lista de hábitos, check-in rápido, indicador de rachas
-- **Formulario de creación**: Campos con validación en tiempo real
-- **Dashboard de hábito**: Estadísticas detalladas, gráficos, historial, acciones (editar/eliminar)
-
----
-
-# Atributos de calidad
-
-## Factibilidad
-- Arquitectura simple que se pueda implementar en un tiempo razonable
-- Sin dependencias externas complejas (base de datos embebida)
-- Features incrementales que se construyen una sobre otra
-
-## Mantenibilidad
-- Código bien estructurado siguiendo patrones de Next.js
-- Separación clara de responsabilidades (components, lib, api)
-- Tests que documenten comportamiento esperado
-- Tipos TypeScript estrictos
-
-## Testabilidad
-- Funciones puras para lógica de negocio (cálculo de rachas)
-- Componentes desacoplados de lógica
-- Mocks simples para base de datos en tests
-
----
-
-# Patrón de arquitectura
-
-## Capas de arquitectura
-
-### Capa de presentación (Frontend)
-```
-Next.js Pages/Components (UI)
-    ↓
-Custom Hooks (estado local, fetching)
-    ↓
-API Client functions (fetch wrappers)
-    ↓
-API Routes (Backend)
-```
-
-### Capa de API (Backend)
-```
-API Routes (Next.js handlers)
-    ↓
-Business Logic (lib/calculations, validations)
-    ↓
-Prisma Client (ORM)
-    ↓
-SQLite Database
-```
-
----
-
-# Entregables esperados
-
-El archivo `docs/plan/planning.md` debe contener:
-
-## 1. Resumen ejecutivo
-- Descripción breve del proyecto y alcance
-- Tecnologías principales utilizadas
-
-## 2. Análisis de preguntas críticas
-- Identifica las **3 preguntas más relevantes** técnicas/arquitectónicas
-- Para cada pregunta:
-  - Contexto de por qué es importante para el proyecto
-  - **2 opciones** con pros/contras/impacto
-  - Recomendación fundamentada (considerando contexto educativo)
-
-## 3. Plan de desarrollo por fases
-- Desglose de features en orden de implementación
-- Dependencias entre features
-- Priorización (MVP → Features adicionales)
-
-## 4. Decisiones arquitectónicas
-- Patrones elegidos y justificación
-- Trade-offs considerados
-- Alternativas descartadas y razones
-
-## 5. Estrategia de testing
-- Approach para tests unitarios, integración y E2E
-- Coverage esperado y métricas de calidad
-
----
-
-# Formato de salida
-
-## Template para preguntas críticas
-
-Para cada pregunta, sigue este formato:
-
-**Pregunta N: [Título de la pregunta]**
-
-**Contexto:** [Por qué es crítica esta pregunta para el proyecto del curso]
-
-**Opciones:**
-
-A) **[Opción 1]**
-   - ✅ Pros: ...
-   - ❌ Contras: ...
-   - 📊 Impacto: ...
-
-B) **[Opción 2]**
-   - ✅ Pros: ...
-   - ❌ Contras: ...
-   - 📊 Impacto: ...
-
-**Recomendación:** [Opción recomendada + justificación considerando contexto educativo]
-
----
-
-# Proceso de ejecución
-
-Sigue este flujo iterativo:
-
-## Paso 1: Análisis inicial
-- Lee y comprende toda la información técnica de referencia
-- Identifica áreas de decisión críticas para el proyecto
-
-## Paso 2: Preguntas críticas
-- **Genera las 3 preguntas más relevantes** usando el template proporcionado
-- Presenta cada pregunta con sus 2 opciones y análisis completo
-- **Espera feedback del usuario** antes de continuar
-
-## Paso 3: Plan completo
-- Una vez confirmadas las decisiones, genera el plan de desarrollo completo
-- Organiza por fases con dependencias claras
-- Incluye todas las secciones de entregables esperados
-
-## Paso 4: Guardar resultado
-- Guarda el plan completo en `docs/plan/planning.md`
-- Asegúrate de que esté bien estructurado para ser consumido por el prompt 02
-
----
-
-## Comenzar ahora
-
-Por favor, **comienza con el Paso 1 y 2**: analiza el contexto y genera las 3 preguntas críticas antes de proceder con el plan completo.
+- **Si tienes dudas** sobre decisiones arquitectónicas, diagramas C4, o cualquier aspecto, **pregunta antes** de generar las tareas
+- Al momento de la ejecución, **indica dónde guardar los diagramas** (puedes preguntar o proponer ubicación)
+- Considera el contexto educativo: tareas incrementales, aprendizaje progresivo
