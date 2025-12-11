@@ -16,9 +16,11 @@ interface UseHabitLogsReturn {
 /**
  * Hook to manage habit logs with revalidation
  * Revalidates both useHabits and useHabitStats after creating a log
+ * Accepts optional mutate function for habit stats to enable immediate UI updates
+ * @param onStatsChange - Optional callback function to revalidate stats (e.g., from useHabitStats)
  * @returns Object with createLog function and loading state
  */
-export function useHabitLogs(): UseHabitLogsReturn {
+export function useHabitLogs(onStatsChange?: (habitId: string) => Promise<any> | void): UseHabitLogsReturn {
   const [isCreating, setIsCreating] = useState(false);
   const { mutate: mutateHabits } = useSWR('/api/habits');
   // Note: mutateHabitStats would be called dynamically with the habit ID
@@ -64,7 +66,17 @@ export function useHabitLogs(): UseHabitLogsReturn {
         // Revalidate multiple keys after successful creation
         await mutateHabits(); // Revalidate habits list (in case stats changed)
         // Also revalidate the stats for this specific habit
-        await mutateSWR(`/api/habits/${habitId}/stats`);
+        if (onStatsChange) {
+          // Call revalidation (may be sync or async)
+          const result = onStatsChange(habitId);
+          // If it returns a promise, wait for it
+          if (result && typeof result.then === 'function') {
+            await result;
+          }
+        } else {
+          // Fallback if no callback provided
+          await mutateSWR(`/api/habits/${habitId}/stats`);
+        }
 
         return log;
       } finally {

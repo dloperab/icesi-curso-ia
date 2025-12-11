@@ -20,6 +20,7 @@ import {
 interface HabitCardProps {
   habit: Habit;
   stats?: HabitStats;
+  onStatsMutate?: () => void;
 }
 
 /**
@@ -27,10 +28,16 @@ interface HabitCardProps {
  * Shows habit name, description, frequency, current streak, and check-in button
  * Includes options for viewing details and deleting the habit
  */
-export function HabitCard({ habit, stats }: HabitCardProps) {
+export function HabitCard({ habit, stats, onStatsMutate }: HabitCardProps) {
   const router = useRouter();
   const { deleteHabit } = useHabits();
-  const { createLog, isCreating } = useHabitLogs();
+  const { createLog, isCreating } = useHabitLogs(
+    onStatsMutate ? (habitId: string) => {
+      if (habitId === habit.id && onStatsMutate) {
+        return onStatsMutate();
+      }
+    } : undefined
+  );
 
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);

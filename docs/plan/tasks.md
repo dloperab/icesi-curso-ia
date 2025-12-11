@@ -231,7 +231,7 @@ Este plan descompone el desarrollo del MVP en **5 fases secuenciales** con **25 
 
 ### Tests End-to-End
 - [ ] Crear tests E2E con Playwright para flujos críticos:
-    - [ ] Flujo 1 en `src/e2e/create-habit-flow.spec.ts`: Abrir app → Click "Crear Hábito" → Llenar form → Submit → Verificar en lista
+    - [x] Flujo 1 en `src/e2e/create-habit-flow.spec.ts`: Abrir app → Click "Crear Hábito" → Llenar form → Submit → Verificar en lista
     - [ ] Flujo 2 en `src/e2e/checkin-flow.spec.ts`: Click checkbox check-in → Verificar racha actualizada → Refrescar página → Validar persistencia
     - [ ] Flujo 3 en `src/e2e/dashboard-flow.spec.ts`: Click "Ver detalles" → Verificar métricas → Verificar gráfico → Cambiar rango temporal (7→30 días)
     - [ ] Configurar setup (crear datos de test) y teardown (limpiar DB)

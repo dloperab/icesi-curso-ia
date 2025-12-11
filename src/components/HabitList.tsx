@@ -89,10 +89,11 @@ export function HabitList() {
 /**
  * HabitListItem - internal component to handle stats fetching for each habit
  * This separation allows stats to be fetched independently for each habit
+ * Passes the mutate function to HabitCard for immediate UI updates on check-in
  */
 function HabitListItem({ habitId, habit }: { habitId: string; habit: Habit }) {
-  const { stats, isLoading } = useHabitStats(habitId);
+  const { stats, isLoading, mutate } = useHabitStats(habitId);
 
   // While loading, show the card without stats
-  return <HabitCard habit={habit} stats={isLoading ? undefined : stats} />;
+  return <HabitCard habit={habit} stats={isLoading ? undefined : stats} onStatsMutate={mutate} />;
 }
